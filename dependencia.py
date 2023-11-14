@@ -30,14 +30,4 @@ def sign_uop():
         password = st.text_input("Password", type="password", placeholder="Enter your password")
         confirm_password = st.text_input("Confirm Password", type="password", placeholder="Confirm your password")
         submit = st.form_submit_button(label="Sign Up")
-    # st.subheader("Sign Up", clear)
-    # name = st.text_input("Name")
-    # email = st.text_input("Email")
-    # password = st.text_input("Password", type="password")
-    # confirm_password = st.text_input("Confirm Password", type="password")
-    # if st.button("Sign Up"):
-    #     if password == confirm_password:
-    #         st.success("You have successfully created a valid Account")
-    #         st.balloons()
-    #     else:
-    #         st.error("Passwords do not match")
+    
