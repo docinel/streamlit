@@ -1,0 +1,6 @@
+credentials:
+  - name: deta
+    key: $DETA_KEY[key]
+    
+
+key = 'e06njc5frug_uZ4w5WteUzrTktc9Wid6hSa5m2H7aPJk'
