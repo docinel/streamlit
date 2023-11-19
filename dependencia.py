@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit_authenticator as stauth
-import datetime
 import re
 from deta import Deta
 
@@ -10,28 +9,28 @@ deta = Deta(DETA_KEY)
 
 db = deta.Base('StreamlitAuth')
 
+
 def insert_user(email, username, password):
-    
-    date_joined = datetime.datetime.now()
+    # date_joined = datetime.datetime.now()
 
     return db.put({'email': email, 'username': username, 'password': password})
 
 # insert_user("docinel@gmail.com", "docinel", "123456")
 
+
 def fetch_all_users():
     res = db.fetch()
     return res.items
 
-# print(fetch_all_users())
 
-
-    
+# print(fetch_all_users())  
 def get_user_by_email():
     users = db.fetch()
     emails = []
     for user in users.items:
         emails.append(user['key'])
     return emails
+
 
 # print(get_user_by_email())
 
@@ -47,10 +46,10 @@ def get_user_by_username():
 
 def validate_email(email):
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-    if(re.search(regex,email)):
-        return True
-    else:
-        return False
+if(re.search(regex,email)):
+    return True
+else:
+    return False
 
 def validate_username(username):
     regex = '^[a-zA-Z0-9]+$'
