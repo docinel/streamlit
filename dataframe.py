@@ -38,13 +38,13 @@ Valor_de_Tabela = df[df['CODIGO'] == codigo]['VALOR_TABELA'].values[0]
 st.sidebar.write(f':blue[Custo do Produto: :green[R$ {df[df["CODIGO"] == codigo]["CUSTOS"].values[0]:.2f}]]'.replace('.', ','))
 st.sidebar.write(f':blue[Valor de Tabela: :green[R$ {df[df["CODIGO"] == codigo]["VALOR_TABELA"].values[0]:.2f}]]'.replace('.', ','))
 st.sidebar.write(f':blue[ID do Produto: :green[{df[df["CODIGO"] == codigo]["ID"].values[0]}]]')
-st.sidebar.write('Descrição do Produto:', df[df['CODIGO'] == codigo]['PRODUTO'].values[0])
+st.sidebar.write(f':red[Descrição do Produto: ], divider=True', df[df['CODIGO'] == codigo]['PRODUTO'].values[0])
 
 # CRIAR UM FORM PARA O PRECO DE VENDA E MATERIA PRIMA
 with st.form("preco", clear_on_submit=False):
     st.write(":rainbow[PRATICAR PREÇO DE VENDA FORA DA TABELA:]")
     preco_venda = st.number_input("Preço de Venda")
-    materia_prima = st.number_input("Materia Prima")
+    # materia_prima = st.number_input("Materia Prima")
     submit = st.form_submit_button("Calcular")
 
 # CRIAR AS VARIAVEIS NÃO MUTÁVEIS
@@ -126,9 +126,9 @@ with st.form("my_form", clear_on_submit=False):
     margem = ((preco_venda - despesas_variaveis) / preco_venda * 100)
 
     if margem >= 30:
-        st.write(" :green[ALERTA] MARGEM DE CONTRIBUICAO ACIMA DE 30% " + ":rocket: " * 5)
+        st.subheader(" :green[MARGEM DE CONTRIBUICAO ACIMA DE 30%] " + ":rocket: " * 3)
     else:
-        st.write(":red[ALERTA] MARGEM DE CONTRIBUICAO ABAIXO DE 30% " + " :disappointed: " * 5)
+        st.subheader(":red[MARGEM DE CONTRIBUIÇÃO ABAIXO DE 30%] " + " :disappointed: " * 3)
         st.write("FAVOR VERIFICAR O QUE PODE SER FEITO PARA AMENIZAR A PERDA")
 
     # Every form must have a submit button.
