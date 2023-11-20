@@ -35,13 +35,14 @@ codigo = st.sidebar.selectbox(
 
 Custo_do_Produto = df[df['CODIGO'] == codigo]['CUSTOS'].values[0]
 Valor_de_Tabela = df[df['CODIGO'] == codigo]['VALOR_TABELA'].values[0]
-st.sidebar.write('Custo do Produto:', df[df['CODIGO'] == codigo]['CUSTOS'].values[0])
-st.sidebar.write('Valor de Tabela:', df[df['CODIGO'] == codigo]['VALOR_TABELA'].values[0])
-st.sidebar.write('ID do Produto:', df[df['CODIGO'] == codigo]['ID'].values[0])
+st.sidebar.write(f':blue[Custo do Produto: :green[R$ {df[df["CODIGO"] == codigo]["CUSTOS"].values[0]:.2f}]]'.replace('.', ','))
+st.sidebar.write(f':blue[Valor de Tabela: :green[R$ {df[df["CODIGO"] == codigo]["VALOR_TABELA"].values[0]:.2f}]]'.replace('.', ','))
+st.sidebar.write(f':blue[ID do Produto: :green[{df[df["CODIGO"] == codigo]["ID"].values[0]}]]')
 st.sidebar.write('Descrição do Produto:', df[df['CODIGO'] == codigo]['PRODUTO'].values[0])
 
 # CRIAR UM FORM PARA O PRECO DE VENDA E MATERIA PRIMA
 with st.form("preco", clear_on_submit=False):
+    st.write(":rainbow[PRATICAR PREÇO DE VENDA FORA DA TABELA:]")
     preco_venda = st.number_input("Preço de Venda")
     materia_prima = st.number_input("Materia Prima")
     submit = st.form_submit_button("Calcular")
@@ -53,7 +54,7 @@ PIS_COFINS = 0.0365
 IR_CSSL = 0.0306
 
 with st.form("my_form", clear_on_submit=False):
-    st.write("Inside the form")
+    # st.write("CALCULAR PREÇO DE VENDA")
     if preco_venda == 0:
         preco_venda = Valor_de_Tabela
 
@@ -125,27 +126,27 @@ with st.form("my_form", clear_on_submit=False):
     margem = ((preco_venda - despesas_variaveis) / preco_venda * 100)
 
     if margem >= 30:
-        st.write(" :green[ALERTA] MARGEM DE CONTRIBUICAO ACIMA DE 30% " + " :rocket: " * 10)
+        st.write(" :green[ALERTA] MARGEM DE CONTRIBUICAO ACIMA DE 30% " + ":rocket: " * 5)
     else:
-        st.write(":red[ALERTA] \n MARGEM DE CONTRIBUICAO ABAIXO DE 30% " + " :disappointed: " * 10)
+        st.write(":red[ALERTA] MARGEM DE CONTRIBUICAO ABAIXO DE 30% " + " :disappointed: " * 5)
         st.write("FAVOR VERIFICAR O QUE PODE SER FEITO PARA AMENIZAR A PERDA")
 
     # Every form must have a submit button.
     submitted = st.form_submit_button("Calcular")
-resultado = st.button(":green[RESULTADO]")
+resultado = st.button("RESULTADO")
 if resultado:
     st.write("Custo do Produto:", f':green[R$ {Custo_do_Produto:.2f}]'.replace('.', ','))
-    st.write("Despezas variáveis:", f'R$ {despesas_variaveis:.2f}'.replace('.', ','))
-    st.write("Margem de Contribuição:", f'R$ {preco_venda - despesas_variaveis:.2f}'.replace('.', ','))
-    st.write("Margem de Contribuição %:", f'{margem:.2f}%'.replace('.', ','))
+    st.write("Despezas variáveis:", f':green[R$ {despesas_variaveis:.2f}]'.replace('.', ','))
+    st.write("Margem de Contribuição:", f':green[R$ {preco_venda - despesas_variaveis:.2f}]'.replace('.', ','))
+    st.write("Margem de Contribuição %:", f':green[{margem:.2f}%]'.replace('.', ','))
     st.write("------")
-    st.write("Frete Próprio:", f'R$ {frtp:.2f}'.replace('.', ','))
-    st.write("Frete Terceiros:", f'R$ {frete_terceiros:.2f}'.replace('.', ','))
-    st.write("Comissão Gerente:", f'R$ {cger:.2f}'.replace('.', ','))
-    st.write("Comissão Representante:", f'R$ {crepr:.2f}'.replace('.', ','))
-    st.write("Royalites Lider:", f'R$ {royalites:.2f}'.replace('.', ','))
+    st.write("Frete Próprio:", f':green[R$ {frtp:.2f}]'.replace('.', ','))
+    st.write("Frete Terceiros:", f':green[R$ {frete_terceiros:.2f}]'.replace('.', ','))
+    st.write("Comissão Gerente:", f':green[R$ {cger:.2f}]'.replace('.', ','))
+    st.write("Comissão Representante:", f':green[R$ {crepr:.2f}]'.replace('.', ','))
+    st.write("Royalites Lider:", f':green[R$ {royalites:.2f}]'.replace('.', ','))
     st.write("------")
-    st.write("ICMS:", f'R$ {ic:.2f}'.replace('.', ','))
-    st.write("PIS/COFINS:", f'R$ {pis:.2f}'.replace('.', ','))
-    st.write("IR/CSLL:", f'R$ {ir:.2f}'.replace('.', ','))
-    st.write("Prazo:", f'R$ {prazo:.2f}'.replace('.', ','))
+    st.write("ICMS:", f':green[R$ {ic:.2f}]'.replace('.', ','))
+    st.write("PIS/COFINS:", f':green[R$ {pis:.2f}]'.replace('.', ','))
+    st.write("IR/CSLL:", f':green[R$ {ir:.2f}]'.replace('.', ','))
+    st.write("Prazo:", f':green[R$ {prazo:.2f}]'.replace('.', ','))
