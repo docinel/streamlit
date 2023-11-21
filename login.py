@@ -4,7 +4,6 @@ import hmac
 import streamlit as st
 import datetime
 import pandas as pd
-import pyautogui as pa
 
 
 def check_password():
@@ -77,8 +76,8 @@ codigo = st.sidebar.selectbox(
     ':blue[Selecione o Código:]',
     df['CODIGO'],
 )
-if st.sidebar.button("sair"):
-    pa.hotkey('ctrl', 'r')
+if st.sidebar.button("RECARREGAR"):
+    st.rerun()
 
 Custo_do_Produto = df[df['CODIGO'] == codigo]['CUSTOS'].values[0]
 Valor_de_Tabela = df[df['CODIGO'] == codigo]['VALOR_TABELA'].values[0]
@@ -92,7 +91,6 @@ st.sidebar.write(':red[Descrição do Produto:]', df[df['CODIGO'] == codigo]['
 with st.form("preco", clear_on_submit=False):
     st.subheader(":green[PRATICAR PREÇO DE VENDA FORA DA TABELA:]", divider='grey')
     preco_venda = st.number_input("Preço de Venda")
-    # materia_prima = st.number_input("Materia Prima")
     submit = st.form_submit_button("Calcular")
 
 # CRIAR AS VARIAVEIS NÃO MUTÁVEIS
