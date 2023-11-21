@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit_authenticator as stauth
-from dependencia import sign_up, fetch_all_users
+from loginauth import sign_up, fetch_all_users
 
 st.set_page_config(page_title="Sign Up", page_icon=":green_book:", initial_sidebar_state="collapsed")
 
@@ -30,7 +30,7 @@ try:
     email, authentication_status, username = authenticator.login(':green[Login]', 'main')
 
     info, info1 = st.columns(2)
-    
+
     if not authentication_status:
         sign_up()
 
@@ -54,6 +54,10 @@ try:
             with info:
                 st.warning('Username does not exist, Please Sign up')
 
+    else:
+        with info:
+            st.warning('Please feed in your credentials')
 
-except:
-    st.success('Refresh Page')
+except Exception as e:
+    st.error(e)
+    st.error('Refresh Page')

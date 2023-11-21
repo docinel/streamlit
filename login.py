@@ -1,7 +1,51 @@
+# streamlit_app.py
+
+import hmac
 import streamlit as st
 import datetime
 import pandas as pd
+import pyautogui as pa
 
+
+def check_password():
+    """Returns `True` if the user had a correct password."""
+
+    def login_form():
+        """Form with widgets to collect user information"""
+        with st.form("Credentials"):
+            st.text_input("Usuário", key="username")
+            st.text_input("Senha", type="password", key="password")
+            st.form_submit_button("Log in", on_click=password_entered)
+
+    def password_entered():
+        """Verifique a senha informada o usuário está correto."""
+        if st.session_state["username"] in st.secrets[
+            "passwords"
+        ] and hmac.compare_digest(
+            st.session_state["password"],
+            st.secrets.passwords[st.session_state["username"]],
+        ):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the username or password.
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if the username + password is validated.
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show inputs for username + password.
+    login_form()
+    if "password_correct" in st.session_state:
+        st.error("😕 Usuário incorreto ou senha inválida. ")
+    return False
+
+
+if not check_password():
+    st.stop()
+
+# Main Streamlit app starts here
 st.set_page_config(page_title="Cálculo de Custos, layout=center", page_icon="📈")
 st.header(":blue[CÁLCULO DE CUSTOS - PREMIUM E LÍDER]")
 
@@ -26,12 +70,15 @@ df = pd.read_excel(
 )
 
 # ABRIR O SIDEBAR PARA SELECIONAR O CODIGO
+#st.sidebar.write(['username', 'password'])
 st.sidebar.subheader(":blue[CÁLCULO DE CUSTOS - PREMIUM E LÍDER]")
 
 codigo = st.sidebar.selectbox(
     ':blue[Selecione o Código:]',
     df['CODIGO'],
 )
+if st.sidebar.button("sair"):
+    pa.hotkey('ctrl', 'r')
 
 Custo_do_Produto = df[df['CODIGO'] == codigo]['CUSTOS'].values[0]
 Valor_de_Tabela = df[df['CODIGO'] == codigo]['VALOR_TABELA'].values[0]
