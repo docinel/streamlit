@@ -69,7 +69,6 @@ df = pd.read_excel(
 )
 
 # ABRIR O SIDEBAR PARA SELECIONAR O CODIGO
-#st.sidebar.write(['username', 'password'])
 st.sidebar.subheader(":blue[CÁLCULO DE CUSTOS - PREMIUM E LÍDER]")
 
 codigo = st.sidebar.selectbox(
@@ -78,11 +77,13 @@ codigo = st.sidebar.selectbox(
 )
 if st.sidebar.button("RECARREGAR"):
     st.rerun()
-
+st.sidebar.divider()
 Custo_do_Produto = df[df['CODIGO'] == codigo]['CUSTOS'].values[0]
 Valor_de_Tabela = df[df['CODIGO'] == codigo]['VALOR_TABELA'].values[0]
-st.sidebar.write(f':blue[Custo do Produto: :green[R$ {df[df["CODIGO"] == codigo]["CUSTOS"].values[0]:.2f}]]'.replace('.', ','))
-st.sidebar.write(f':blue[Valor de Tabela: :green[R$ {df[df["CODIGO"] == codigo]["VALOR_TABELA"].values[0]:.2f}]]'.replace('.', ','))
+st.sidebar.write(f':blue[Custo do Produto: :green[R$ {df[df["CODIGO"] == codigo]["CUSTOS"].values[0]:.2f}]]'
+                 .replace('.', ','))
+st.sidebar.write(f':blue[Valor de Tabela: :green[R$ {df[df["CODIGO"] == codigo]["VALOR_TABELA"].values[0]:.2f}]]'
+                 .replace('.', ','))
 st.sidebar.write(f':blue[ID do Produto: :green[{df[df["CODIGO"] == codigo]["ID"].values[0]}]]')
 st.sidebar.divider()
 st.sidebar.write(':red[Descrição do Produto:]', df[df['CODIGO'] == codigo]['PRODUTO'].values[0])
