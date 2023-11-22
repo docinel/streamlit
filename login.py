@@ -89,7 +89,7 @@ st.sidebar.divider()
 st.sidebar.write(':red[Descrição do Produto:]', df[df['CODIGO'] == codigo]['PRODUTO'].values[0])
 
 # CRIAR UM FORM PARA O PRECO DE VENDA E MATERIA PRIMA
-with st.form("preco", clear_on_submit=False):
+with st.form("preco", clear_on_submit=True):
     st.subheader(":green[PRATICAR PREÇO DE VENDA FORA DA TABELA:]", divider='grey')
     preco_venda = st.number_input("Preço de Venda")
     submit = st.form_submit_button("Calcular")
@@ -183,7 +183,7 @@ with st.form("my_form", clear_on_submit=False):
 resultado = st.button("RESULTADO")
 if resultado:
     st.write("Custo do Produto:", f':green[R$ {Custo_do_Produto:.2f}]'.replace('.', ','))
-    st.write("Despezas variáveis:", f':green[R$ {despesas_variaveis:.2f}]'.replace('.', ','))
+    st.write("Despesas variáveis:", f':green[R$ {despesas_variaveis:.2f}]'.replace('.', ','))
     st.write("Margem de Contribuição:", f':green[R$ {preco_venda - despesas_variaveis:.2f}]'.replace('.', ','))
     st.write("Margem de Contribuição %:", f':green[{margem:.2f}%]'.replace('.', ','))
     st.write("------")
