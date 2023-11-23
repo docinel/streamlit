@@ -45,9 +45,8 @@ if not check_password():
     st.stop()
 
 # Main Streamlit app starts here
-st.set_page_config(page_title="Cálculo de Custos, layout=center", page_icon="📈")
+st.set_page_config(page_title="Cálculo de Custos", layout="centered", page_icon="📈")
 st.header(":blue[CÁLCULO DE CUSTOS - PREMIUM E LÍDER]")
-
 # DETERMINAR O HORARIO DA SAUDAÇÂO
 agora = datetime.datetime.now()
 agora_txt = agora.strftime("%H")
@@ -100,7 +99,7 @@ COMISSAO_GER = 0.0027
 PIS_COFINS = 0.0365
 IR_CSSL = 0.0306
 
-with st.form("my_form", clear_on_submit=False):
+with st.form("my_form", clear_on_submit=True):
     # st.write("CALCULAR PREÇO DE VENDA")
     if preco_venda == 0:
         preco_venda = Valor_de_Tabela
@@ -177,18 +176,17 @@ with st.form("my_form", clear_on_submit=False):
     else:
         st.subheader(":red[MARGEM DE CONTRIBUIÇÃO ABAIXO DE 30%] " + " :disappointed: " * 3)
         st.write("FAVOR VERIFICAR O QUE PODE SER FEITO PARA AMENIZAR A PERDA")
-
+    
     # Every form must have a submit button.
     submitted = st.form_submit_button("Calcular")
-resultado = st.button("RESULTADO")
-if resultado:
+    st.divider()
     col1, col2, col3 = st.columns(3)
     with col1:
         st.write("Valor de Tabela:", f':green[R$ {Valor_de_Tabela:.2f}]'.replace('.', ','))
     with col2:
         st.write("Fora de tabela:", f':green[R$ {preco_venda:.2f}]'.replace('.', ','))
     with col3:
-        des_apl = (preco_venda/Valor_de_Tabela)*100
+        des_apl = 100-((preco_venda/Valor_de_Tabela)*100)
         st.write("Desconto Aplicado:", f':green[{des_apl:.2f}%]'.replace('.', ','))
     st.divider()
     st.write("Custo do Produto:", f':green[R$ {Custo_do_Produto:.2f}]'.replace('.', ','))
