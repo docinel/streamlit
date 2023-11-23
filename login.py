@@ -182,6 +182,15 @@ with st.form("my_form", clear_on_submit=False):
     submitted = st.form_submit_button("Calcular")
 resultado = st.button("RESULTADO")
 if resultado:
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("Valor de Tabela:", f':green[R$ {Valor_de_Tabela:.2f}]'.replace('.', ','))
+    with col2:
+        st.write("Fora de tabela:", f':green[R$ {preco_venda:.2f}]'.replace('.', ','))
+    with col3:
+        des_apl = (preco_venda/Valor_de_Tabela)*100
+        st.write("Desconto Aplicado:", f':green[{des_apl:.2f}%]'.replace('.', ','))
+    st.divider()
     st.write("Custo do Produto:", f':green[R$ {Custo_do_Produto:.2f}]'.replace('.', ','))
     st.write("Despesas variáveis:", f':green[R$ {despesas_variaveis:.2f}]'.replace('.', ','))
     st.write("Margem de Contribuição:", f':green[R$ {preco_venda - despesas_variaveis:.2f}]'.replace('.', ','))
